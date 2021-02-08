@@ -18,5 +18,9 @@
   },
   "engines": {
     "node": "^14.15"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "tone": "^14.7.77"
   }
 }
