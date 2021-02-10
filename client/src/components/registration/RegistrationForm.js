@@ -81,12 +81,12 @@ const RegistrationForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/uploads";
   }
 
   return (
     <div className="grid-container" onSubmit={onSubmit}>
-      <h1>Register</h1>
+      <h1>Register to be able to upload and record!</h1>
       <form>
         <div>
           <label>

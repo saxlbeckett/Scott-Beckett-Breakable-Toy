@@ -6,11 +6,12 @@
  * @param {Knex} knex
  */
 exports.up = async (knex) => {
-    return knex.schema.createTable("audio-files", (table) => {
+    return knex.schema.createTable("audioFiles", (table) => {
         table.bigIncrements("id").primary();
         table.string("name")
         table.string("type")
-        table.string("audio-filepath").notNullable()
+        table.string("audioFilePath").notNullable()
+        table.bigInteger("userId").unsigned().notNullable().index().references("users.id");
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
         table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
 
@@ -21,5 +22,5 @@ exports.up = async (knex) => {
  * @param {Knex} knex
  */
 exports.down = (knex) => {
-    return knex.schema.dropTableIfExists("audio-files")
+    return knex.schema.dropTableIfExists("audioFiles")
 }
