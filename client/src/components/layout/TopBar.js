@@ -11,20 +11,30 @@ const TopBar = ({ user }) => {
       <Link to="/users/new" className="button">
         Sign Up
       </Link>
-    </li>,
+    </li>
   ];
 
   const authenticatedListItems = [
+    <li key="upload">
+      <Link to="/uploads">
+        Upload
+      </Link>
+    </li>,
+    <li key="recordings">
+      <Link to="/recordingd">
+        Record
+      </Link>
+    </li>,
     <li key="sign-out">
       <SignOutButton />
-    </li>,
+    </li>
   ];
 
   return (
     <div className="top-bar">
       <div className="top-bar-left">
         <ul className="menu">
-          <li className="menu-text">App</li>
+          <li className="menu-text">Audio Notepad!</li>
           <li>
             <Link to="/">Home</Link>
           </li>

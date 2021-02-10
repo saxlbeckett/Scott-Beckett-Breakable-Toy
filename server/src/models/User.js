@@ -15,6 +15,21 @@ class User extends uniqueFunc(Model) {
     return "users";
   }
 
+  static get relationMappings() {
+    const { Audio } = require("./index")
+
+    return{
+      audioFiles: {
+        relation: Model.HasManyRelation,
+        modelClass: Audio,
+        join: {
+          from: "users.id",
+          to: "audioFiles.userId",
+        }
+      }
+    }
+  }
+
   set password(newPassword) {
     this.cryptedPassword = Bcrypt.hashSync(newPassword, saltRounds);
   }

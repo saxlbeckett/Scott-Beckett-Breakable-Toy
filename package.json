@@ -20,7 +20,11 @@
     "node": "^14.15"
   },
   "dependencies": {
+    "aws-sdk": "^2.840.0",
     "axios": "^0.21.1",
+    "mic-recorder-to-mp3": "^2.2.2",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "tone": "^14.7.77"
   }
 }
