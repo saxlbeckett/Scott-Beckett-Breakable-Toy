@@ -39,6 +39,7 @@ const Uploader = (props) => {
           }
         } else {
           const body = await response.json();
+          alert("Upload succesfull")
         }
       } catch (error) {
         console.error(`Error in fetch: ${error.message}`);
