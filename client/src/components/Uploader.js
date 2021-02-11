@@ -22,7 +22,7 @@ const Uploader = (props) => {
       formData.append("audio", selectedFile)
       
       try {
-        const response = await fetch(`/api/v1/upload`, {
+        const response = await fetch(`/api/v1/audio`, {
           method: "POST",
           credentials: "same-origin",
           body: formData,
