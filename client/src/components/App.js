@@ -28,18 +28,12 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/uploads">
-          <Uploader user={currentUser}/>
-        </Route> 
+        <AuthenticatedRoute exact path="/uploads" component={Uploader}/>
         <AuthenticatedRoute exact path="/recordings" component={Recorder}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/profile">
-          <UserProfile user={currentUser} />
-        </Route> 
-        <Route exact path="/audio/:id">
-          <AudioShowPage user={currentUser} />
-        </Route> 
+        <AuthenticatedRoute exact path="/profile" component={UserProfile}/>
+        <Route exact path="/audio/:id" component={AudioShowPage}/>
         <Route exact path="/" component={HomePage}/>
       </Switch>
     </Router>

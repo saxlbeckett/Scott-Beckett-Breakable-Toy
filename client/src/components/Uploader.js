@@ -1,6 +1,7 @@
 
 import React,{ useState } from 'react';
 import FileData from "./FileData"
+import { Redirect } from 'react-router-dom'
  
 const Uploader = (props) => {
 
@@ -40,16 +41,16 @@ const Uploader = (props) => {
           }
         } else {
           alert("Upload succesfull")
-          const body = await response.json();
           setShouldRedirect(true)
+          const body = await response.json();
+          
         }
       } catch (error) {
         console.error(`Error in fetch: ${error.message}`);
       }
     };
-
     if (shouldRedirect) {
-      location.href = "/profile";
+      return <Redirect to="/profile"/>
     }
       
     return (

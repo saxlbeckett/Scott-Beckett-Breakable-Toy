@@ -7,6 +7,13 @@ const SignInForm = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const onInputChange = (event) => {
+    setUserPayload({
+      ...userPayload,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
   const validateInput = (payload) => {
     setErrors({});
     const { email, password, passwordConfirmation } = payload;
@@ -25,7 +32,6 @@ const SignInForm = () => {
         password: "is required",
       };
     }
-
     setErrors(newErrors);
   };
 
@@ -52,12 +58,7 @@ const SignInForm = () => {
       });
     }
   };
-  const onInputChange = (event) => {
-    setUserPayload({
-      ...userPayload,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
+
 
   if (shouldRedirect) {
     location.href = "/profile";
