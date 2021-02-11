@@ -4,7 +4,6 @@ import AudioTile from './AudioTile';
 const HomePage = (props) => {
   
   const [audioFiles, setAudioFiles] = useState([]);
-  const [currentVote, setCurrentVote] = useState({});
 
   const getAudio = async () => {
     try {

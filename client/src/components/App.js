@@ -10,6 +10,8 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import Recorder from "./Recorder"
 import Uploader from "./Uploader"
+import AudioShowPage from "./AudioShowPage";
+import UserProfile from "./UserProfile"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -26,10 +28,18 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <AuthenticatedRoute exact path="/uploads" component={Uploader}/>
+        <Route exact path="/uploads">
+          <Uploader user={currentUser}/>
+        </Route> 
         <AuthenticatedRoute exact path="/recordings" component={Recorder}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
+        <Route exact path="/profile">
+          <UserProfile user={currentUser} />
+        </Route> 
+        <Route exact path="/audio/:id">
+          <AudioShowPage user={currentUser} />
+        </Route> 
         <Route exact path="/" component={HomePage}/>
       </Switch>
     </Router>

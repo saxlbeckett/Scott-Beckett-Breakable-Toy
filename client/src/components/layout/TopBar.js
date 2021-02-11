@@ -15,7 +15,12 @@ const TopBar = ({ user }) => {
   ];
 
   const authenticatedListItems = [
-    <li key="upload">
+    <li key="profile">
+      <Link to="/profile">
+        My profile
+      </Link>
+    </li>,
+    <li key="uploads">
       <Link to="/uploads">
         Upload
       </Link>

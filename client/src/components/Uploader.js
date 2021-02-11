@@ -5,6 +5,7 @@ import FileData from "./FileData"
 const Uploader = (props) => {
 
     const [selectedFile, setSelectedFile] = useState({})
+    const [shouldRedirect, setShouldRedirect] = useState(false)
     
     // On file select (from the pop up)
     const onFileChange = (event) => {
@@ -38,20 +39,23 @@ const Uploader = (props) => {
             throw error;
           }
         } else {
-          const body = await response.json();
           alert("Upload succesfull")
+          const body = await response.json();
+          setShouldRedirect(true)
         }
       } catch (error) {
         console.error(`Error in fetch: ${error.message}`);
       }
     };
 
+    if (shouldRedirect) {
+      location.href = "/profile";
+    }
       
     return (
       <div>
-          <h3>
-            File Upload
-          </h3>
+          <h3>File Upload</h3>
+          <h4>Only .mp3 or .wav files are allowed!</h4>
           <form onSubmit={onFileUpload} encType="multipart/form-data">
               <input type="file" onChange={onFileChange} />
               <input type="submit" value="Upload"/>

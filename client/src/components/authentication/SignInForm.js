@@ -60,7 +60,7 @@ const SignInForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/uploads";
+    location.href = "/profile";
   }
 
   return (

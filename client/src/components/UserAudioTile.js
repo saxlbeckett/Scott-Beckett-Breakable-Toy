@@ -4,7 +4,7 @@ const AudioTile = (props) => {
 
   return(
     <div>
-      <h5>{props.file.name}</h5>
+      <Link to={`/audio/${props.file.id}`}></Link><h5>{props.file.name}</h5>
       <h5>{props.file.type}</h5>
       <h5>User # {props.file.user.email}</h5>
       <audio
