@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FormError from "../layout/FormError";
 import config from "../../config";
+import { Redirect } from "react-router-dom"
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
@@ -81,7 +82,7 @@ const RegistrationForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/uploads";
+    return <Redirect to="/profile"/>
   }
 
   return (
