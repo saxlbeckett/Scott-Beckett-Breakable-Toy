@@ -25,7 +25,7 @@ const SignOutButton = () => {
   };
 
   if (shouldRedirect) {
-    return <Redirect to="/"/>
+    location.href="/"
   }
 
   return (

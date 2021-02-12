@@ -10,7 +10,7 @@ const AudioShowPage = (props) => {
 
   const getTrack = async () => {
     const trackId = props.match.params.id
-    try {
+    try{
       const response = await fetch(`/api/v1/audio/${trackId}`);
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`;
@@ -103,7 +103,7 @@ const AudioShowPage = (props) => {
   return (
     <div>
       <h2>{track.name}</h2>
-      <h3>Update and delete methods will be passed in as props</h3>
+      <h3>Control Pad:</h3>
       <ControlPad track={track} deleteTrack={deleteTrack} updateTrack={updateTrack}/>
     </div>
   );

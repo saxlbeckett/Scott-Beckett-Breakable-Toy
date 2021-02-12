@@ -23,19 +23,25 @@ const App = (props) => {
         setCurrentUser(null);
       });
   }, []);
+  // debugger
   return (
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <AuthenticatedRoute exact path="/uploads" component={Uploader}/>
+        <Route exact path="/" component={HomePage}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute exact path="/profile" component={UserProfile}/>
+        <Route exact path="/uploads" component={Uploader}/>
+        <AuthenticatedRoute exact path="/profile" user={currentUser} component={UserProfile} />
         <Route exact path="/audio/:id" component={AudioShowPage}/>
-        <Route exact path="/" component={HomePage}/>
+        
       </Switch>
     </Router>
   );
 };
 
 export default hot(App);
+
+{/* <Route exact path="/profile">
+<UserProfile user={currentUser}/>
+</Route> */}
