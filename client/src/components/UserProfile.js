@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from "react";
 import { withRouter } from "react-router";
 import UserAudioTile from "./UserAudioTile"
-import getCurrentUser from "../services/getCurrentUser"
+import getCurrentUser from "./../services/getCurrentUser.js"
 
 const UserProfile = (props) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
 
+  // useEffect(() => {
+ 
+  // }, []);
+  
+  const currentUser = props.user
+  const [user, setUser] = useState(currentUser)
   const [audioFiles, setAudioFiles] = useState([]);
   const getAudio = async (user) => {
     try {
@@ -23,14 +28,17 @@ const UserProfile = (props) => {
   };
 
   useEffect(() => {
-    getCurrentUser()
+    if (!user) {
+      getCurrentUser()
       .then((user) => {
-        setCurrentUser(user);
-        getAudio(user);
+        setUser(user);
       })
       .catch(() => {
-        setCurrentUser(null);
+        setUser(null);
       });
+    } else {
+      getAudio(user)
+    }
   }, []);
 
     
@@ -53,4 +61,4 @@ const UserProfile = (props) => {
   )
 }
 
-export default withRouter(UserProfile);
+export default UserProfile;

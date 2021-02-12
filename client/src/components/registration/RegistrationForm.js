@@ -82,7 +82,7 @@ const RegistrationForm = () => {
   };
 
   if (shouldRedirect) {
-    return <Redirect to="/profile"/>
+    location.href="/uploads"
   }
 
   return (

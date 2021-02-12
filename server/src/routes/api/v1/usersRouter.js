@@ -18,15 +18,17 @@ usersRouter.post("/", async (req, res) => {
   }
 });
 usersRouter.get("/:id", async (req, res) => {
+  console.log("REQUSER", req.user)
   const id = req.user.id
   try {
-    const user = await User.query().findById(id);
-    const tracks = await user.$relatedQuery("audioFiles")
+    // const user = await User.query().findById(id);
+    const tracks = await req.user.$relatedQuery("audioFiles")
     const serializedTracks = [];
-        for (const track of tracks) {
-          const serializedTrack = await FileSerializer.showData(track);
-          serializedTracks.push(serializedTrack);
-        }
+    for (const track of tracks) {
+      const serializedTrack = await FileSerializer.showData(track);
+      serializedTracks.push(serializedTrack);
+    }
+    console.log("SerializedTracks", serializedTracks)    
     return res.status(200).json({ userAudio: serializedTracks });
   } catch (error) {
     return res.status(500).json({ errors: error });
