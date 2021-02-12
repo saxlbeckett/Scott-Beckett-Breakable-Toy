@@ -8,7 +8,6 @@ import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
-import Recorder from "./Recorder"
 import Uploader from "./Uploader"
 import AudioShowPage from "./AudioShowPage";
 import UserProfile from "./UserProfile"
@@ -29,7 +28,6 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <AuthenticatedRoute exact path="/uploads" component={Uploader}/>
-        <AuthenticatedRoute exact path="/recordings" component={Recorder}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <AuthenticatedRoute exact path="/profile" component={UserProfile}/>
