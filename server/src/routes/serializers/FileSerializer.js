@@ -2,7 +2,7 @@ import UserSerializer from "./UserSerializer.js"
 
 class FileSerializer {
   static async showData(file) {
-    const allowedAttributes = ["name", "type", "audioFilePath"];
+    const allowedAttributes = ["id", "name", "type", "audioFilePath"];
 
     let serializedFile = {};
     for (const attribute of allowedAttributes) {

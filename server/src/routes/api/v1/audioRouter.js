@@ -35,4 +35,17 @@ audioRouter.get('/', async (req, res) => {
         return res.status(500).json({ errors: error })
     }
 })
+
+audioRouter.get("/:id", async (req, res) => {
+    const trackId = req.params.id
+
+    try {
+        const track = await Audio.query().findById(trackId);
+        console.log("Track", track)
+        const serializedTrack = await FileSerializer.showData(track);
+        return res.status(200).json({ track: serializedTrack });
+      } catch (error) {
+        return res.status(500).json({ errors: error });
+      }
+})
 export default audioRouter;

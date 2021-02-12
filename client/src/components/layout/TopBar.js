@@ -25,11 +25,6 @@ const TopBar = ({ user }) => {
         Upload
       </Link>
     </li>,
-    <li key="recordings">
-      <Link to="/recordingd">
-        Record
-      </Link>
-    </li>,
     <li key="sign-out">
       <SignOutButton />
     </li>

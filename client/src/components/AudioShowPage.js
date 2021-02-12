@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Route, useParams, withRouter } from "react-router-dom";
 import translateServerErrors from "../services/translateServerErrors";
+import ControlPad from "./ControlPad"
 
 const AudioShowPage = (props) => {
   const [errors, setErrors] = useState({});
@@ -55,6 +56,7 @@ const AudioShowPage = (props) => {
     }
   };
 
+
   const updateTrack = async (track) => {
     let formData = new FormData()
     formData.append("audio", selectedFile)
@@ -78,7 +80,7 @@ const AudioShowPage = (props) => {
       } else {
         const body = await response.json();
         debugger;
-        setPark(body);
+        setTrack(body.track);
         setErrors({});
         return;
       }
@@ -95,13 +97,14 @@ const AudioShowPage = (props) => {
   }
 
   if (shouldRedirect) {
-    location.href = "/uploads";
+    return <Redirect to= "/profile"/>;
   }
 
   return (
     <div>
-      <h2>Control pad feature goes here</h2>
+      <h2>{track.name}</h2>
       <h3>Update and delete methods will be passed in as props</h3>
+      <ControlPad track={track} deleteTrack={deleteTrack} updateTrack={updateTrack}/>
     </div>
   );
 };
