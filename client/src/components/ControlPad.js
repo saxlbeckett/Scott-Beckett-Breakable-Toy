@@ -184,7 +184,7 @@ const ControlPad = (props) => {
         <input type="submit" onClick={noCrush} value="Bit Crusher off"/></h5>
         <h5><input type="submit" onClick={airHorn} value="Airhorn"/></h5>
         <h5><input type="submit" onClick={bassDrum} value="Bass drum"/></h5>
-        <h6>To Trigger kinc, mouse down on the offbeat, mouse up on the beat</h6>
+        <h6>To Trigger kick, mouse down on the offbeat, mouse up on the beat</h6>
       </section>
       <section><h3>Mic Controls</h3>
         <h5>Put on headphones before starting mic <br/> to prevent feedback!</h5>
