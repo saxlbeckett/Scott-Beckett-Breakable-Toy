@@ -12,6 +12,8 @@ const ControlPad = (props) => {
       console.log("sample loaded");
     }
   }).connect(recorder).toDestination();
+  const synth = new Tone.MembraneSynth().connect(recorder).toDestination();
+  Tone.Transport.start();
   const player = new Tone.Player(`${props.track.audioFilePath}`).connect(recorder).toDestination();
   const chorus = new Tone.Chorus(100, 30, 1).connect(recorder).toDestination();
   const pingPong = new Tone.PingPongDelay(0.50 , 0.25).connect(recorder).toDestination();
@@ -69,6 +71,10 @@ const ControlPad = (props) => {
   const airHorn = (event) => {
     event.preventDefault()
     sampler.triggerAttack(["A1"])
+  }
+  const bassDrum = (event) => {
+    event.preventDefault()
+    synth.triggerAttackRelease("C2", "8n");
   }
   const speedUp = (event) => {
     event.preventDefault()
@@ -139,7 +145,7 @@ const ControlPad = (props) => {
   }
 
   const record = (event) => {
-    alert("Play your track and start singing!")
+    alert("Now you can start your mic and start you track and cut a demo!")
     recorder.start();
   }
 
@@ -177,6 +183,8 @@ const ControlPad = (props) => {
         <h5><input type="submit" onClick={bitCrush} value="Bit Crusher On"/>
         <input type="submit" onClick={noCrush} value="Bit Crusher off"/></h5>
         <h5><input type="submit" onClick={airHorn} value="Airhorn"/></h5>
+        <h5><input type="submit" onClick={bassDrum} value="Bass drum"/></h5>
+        <h6>To Trigger kick, mouse down on the offbeat, mouse up on the beat</h6>
       </section>
       <section><h3>Mic Controls</h3>
         <h5>Put on headphones before starting mic <br/> to prevent feedback!</h5>
