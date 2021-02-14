@@ -10,7 +10,7 @@ aws.config.update({
 const s3 = new aws.S3()
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'audio/mpeg' || file.mimetype === 'audio/wav') {
+    if (file.mimetype === 'audio/mpeg' || file.mimetype === 'video/webm') {
       cb(null, true);
     } else {
       cb(new Error('Invalid file type, only mp3 or wav is allowed!'), false);
