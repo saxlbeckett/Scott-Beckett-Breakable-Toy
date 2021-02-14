@@ -54,6 +54,7 @@ const SignInForm = () => {
         } else {
           const errorMessage = `${resp.status} (${resp.statusText})`;
           const error = new Error(errorMessage);
+          alert(error)
           throw error;
         }
       });
@@ -61,7 +62,7 @@ const SignInForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href="/profile"
+    location.href="/"
   }
 
   return (

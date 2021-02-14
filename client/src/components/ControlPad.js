@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as Tone from 'tone'
 
 
+
 const ControlPad = (props) => {
   const actx = new Tone.Context();
   const recorder = new Tone.Recorder();
@@ -167,43 +168,42 @@ const ControlPad = (props) => {
    
   return(
     <div>
-      <section><h3>Track controls:</h3>
-        <h4> <input type="submit" onClick={play} value="Play"/>
-        <input type="submit" onClick={stop} value="Stop"/></h4>
-        <h4> <input type="submit" onClick={speedUp} value="Speed+"/>
-        <input type="submit" onClick={speedDown} value="Speed-"/></h4>
-        <h4> <input type="submit" onClick={reverse} value="Reverse"/>
-        <input type="submit" onClick={forward} value="Forward"/></h4>
-        <h5><input type="submit" onClick={onChorus} value="Chorus On"/>
-        <input type="submit" onClick={noChorus} value="Chorus off"/></h5>
-        <h5><input type="submit" onClick={onPing} value="Ping Pong On"/>
-        <input type="submit" onClick={noPing} value="Ping Pong off"/></h5>
-        <h5><input type="submit" onClick={onPitch} value="Pitch shift On"/>
-        <input type="submit" onClick={noPitch} value="Pitch shift off"/></h5>
-        <h5><input type="submit" onClick={bitCrush} value="Bit Crusher On"/>
-        <input type="submit" onClick={noCrush} value="Bit Crusher off"/></h5>
-        <h5><input type="submit" onClick={airHorn} value="Airhorn"/></h5>
-        <h5><input type="submit" onClick={bassDrum} value="Bass drum"/></h5>
+      <section><h4>Track controls:</h4>
+        <h6> <input type="submit" onClick={play} value="Play"/>
+        <input type="submit" onClick={stop} value="Stop"/></h6>
+        <h6> <input type="submit" onClick={speedUp} value="Speed+"/>
+        <input type="submit" onClick={speedDown} value="Speed-"/></h6>
+        <h6> <input type="submit" onClick={reverse} value="Reverse"/>
+        <input type="submit" onClick={forward} value="Forward"/></h6>
+        <h6><input type="submit" onClick={onChorus} value="Chorus On"/>
+        <input type="submit" onClick={noChorus} value="Chorus off"/></h6>
+        <h6><input type="submit" onClick={onPing} value="Ping Pong On"/>
+        <input type="submit" onClick={noPing} value="Ping Pong off"/></h6>
+        <h6><input type="submit" onClick={onPitch} value="Pitch shift On"/>
+        <input type="submit" onClick={noPitch} value="Pitch shift off"/></h6>
+        <h6><input type="submit" onClick={bitCrush} value="Bit Crusher On"/>
+        <input type="submit" onClick={noCrush} value="Bit Crusher off"/></h6>
+        <h6><input type="submit" onClick={airHorn} value="Airhorn"/></h6>
+        <h6><input type="submit" onClick={bassDrum} value="Bass drum"/></h6>
         <h6>To Trigger kick, mouse down on the offbeat, mouse up on the beat</h6>
       </section>
-      <section><h3>Mic Controls</h3>
-        <h5>Put on headphones before starting mic <br/> to prevent feedback!</h5>
-        <h4> <input type="submit" onClick={micOn} value="Mic On"/>
-        <input type="submit" onClick={micOff} value="Mic Off"/></h4>
-        <h5><input type="submit" onClick={onReverb} value="Reverb On"/>
-        <input type="submit" onClick={noReverb} value="Reverb off"/></h5>
-        <h5><input type="submit" onClick={onHarmonize} value="Harmonizer On"/>
-        <input type="submit" onClick={noHarmonize} value="Harmonizer off"/></h5>
-        <h5><input type="submit" onClick={onVoxShift} value="Pitch Shifter On"/>
-        <input type="submit" onClick={noVoxShift} value="Pitch Shifter off"/></h5>
-        <h5><input type="submit" onClick={onEcho} value="Echo On"/>
-        <input type="submit" onClick={noEcho} value="Echo off"/></h5>
+      <section><h4>Mic Controls</h4>
+        <h6>Put on headphones before starting mic <br/> to prevent feedback!</h6>
+        <h6> <input type="submit" onClick={micOn} value="Mic On"/>
+        <input type="submit" onClick={micOff} value="Mic Off"/></h6>
+        <h6><input type="submit" onClick={onReverb} value="Reverb On"/>
+        <input type="submit" onClick={noReverb} value="Reverb off"/></h6>
+        <h6><input type="submit" onClick={onHarmonize} value="Harmonizer On"/>
+        <input type="submit" onClick={noHarmonize} value="Harmonizer off"/></h6>
+        <h6><input type="submit" onClick={onVoxShift} value="Pitch Shifter On"/>
+        <input type="submit" onClick={noVoxShift} value="Pitch Shifter off"/></h6>
+        <h6><input type="submit" onClick={onEcho} value="Echo On"/>
+        <input type="submit" onClick={noEcho} value="Echo off"/></h6>
       </section>
-      <section><h3>Recording controls:</h3>
-        <h4><input type="submit" onClick={record} value="Start Recording"/>
-        <input type="submit" onClick={stopRecord} value="Stop Recording"/></h4>
+      <section><h4>Recording controls:</h4>
+        <h6><input type="submit" onClick={record} value="Start Recording"/>
+        <input type="submit" onClick={stopRecord} value="Stop Recording"/></h6>
       </section>
-      
     </div>
   )
 }

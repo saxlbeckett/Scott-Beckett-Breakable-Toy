@@ -14,7 +14,6 @@ const HomePage = (props) => {
         throw error;
       }
       const body = await response.json();
-      console.log(body)
       setAudioFiles(body.allAudio);
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`);
