@@ -6,14 +6,10 @@ const FileData = (props) => {
        
       return (
         <div>
-          <h2>File Details:</h2>
-           
-            <p>File Name: {props.selectedFile.name}</p>
-      
-            <p>File Type: {props.selectedFile.type}</p>
-
-            <p>Last Modified: {props.selectedFile.lastModified}</p>
-
+          <h4>File Details:</h4>
+            <h6>File Name: {props.selectedFile.name}</h6>
+            <h6>File Type: {props.selectedFile.type}</h6>
+            <h6>Last Modified: {props.selectedFile.lastModified}</h6>
         </div>
       );
     } else {

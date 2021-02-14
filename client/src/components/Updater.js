@@ -1,9 +1,9 @@
 
 import React,{ useState } from 'react';
 import FileData from "./FileData"
-import { Redirect } from 'react-router-dom'
+
  
-const Uploader = (props) => {
+const Updater = (props) => {
 
     const [selectedFile, setSelectedFile] = useState({})
     const [shouldRedirect, setShouldRedirect] = useState(false)
@@ -16,16 +16,17 @@ const Uploader = (props) => {
 
     const onFileUpload = (event) => {
       event.preventDefault()
-      postAudio()
+      patchAudio()
     }
 
-    const postAudio = async () => {
+    const patchAudio = async () => {
+      let trackId = props.trackId
       let formData = new FormData()
       formData.append("audio", selectedFile)
       
       try {
-        const response = await fetch(`/api/v1/audio`, {
-          method: "POST",
+        const response = await fetch(`/api/v1/audio/${trackId}`, {
+          method: "PATCH",
           credentials: "same-origin",
           body: formData,
         });
@@ -40,10 +41,11 @@ const Uploader = (props) => {
             throw error;
           }
         } else {
-          alert("Upload succesfull")
-          setShouldRedirect(true)
           const body = await response.json();
-          
+          console.log(body.update)
+          alert("Update succesfull")
+          setShouldRedirect(true)
+         
         }
       } catch (error) {
         console.error(`Error in fetch: ${error.message}`);
@@ -55,11 +57,11 @@ const Uploader = (props) => {
       
     return (
       <div>
-          <h5>File Upload</h5>
-          <h6>Only .mp3 or .webm files are allowed!</h6>
+          <h5>Overwrite the existing track with you new track?</h5>
+          <h6>Only mp3 or .webm files are allowed</h6>
           <form onSubmit={onFileUpload} encType="multipart/form-data">
               <input type="file" onChange={onFileChange} />
-              <input type="submit" value="Upload"/>
+              <input type="submit" value="Update"/>
           </form>
         <FileData selectedFile={selectedFile}/>
       </div>
@@ -67,4 +69,4 @@ const Uploader = (props) => {
   }
   
  
-  export default Uploader;
+  export default Updater;
