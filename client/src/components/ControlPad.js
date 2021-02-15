@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import * as Tone from 'tone'
 
 
-
 const ControlPad = (props) => {
   const actx = new Tone.Context();
   const recorder = new Tone.Recorder();
@@ -27,14 +26,23 @@ const ControlPad = (props) => {
   const voiceShift = new Tone.PitchShift(-8).connect(recorder).toDestination();
   const feedbackDelay = new Tone.FeedbackDelay("8n", 0.25).connect(recorder).toDestination();
   //Track functions
+
   const play = (event) => {
       Tone.loaded().then(()=> {
         player.start();
       });
   }
-
   const stop = (event) => {
+    event.preventDefault()
     player.stop()
+  }
+  const onLoop = (event) => {
+    event.preventDefault()
+    player.loop = true
+  }
+  const noLoop = (event) => {
+    event.preventDefault()
+    player.loop = false
   }
 
   const bitCrush = (event) => {
@@ -155,55 +163,116 @@ const ControlPad = (props) => {
     alert("Recording stopped, your performance is being downloded")
     setTimeout(async () => {
       // the recorded audio is returned as a blob
-      const recording = await recorder.stop();
-      // download the recording by creating an anchor element and blob url
-      const url = URL.createObjectURL(recording);
-      const anchor = document.createElement("a");
-      anchor.download = "recording.webm";
-      anchor.href = url;
-      anchor.click();
+      try{
+        const recording = await recorder.stop();
+        // download the recording by creating an anchor element and blob url
+        const url = URL.createObjectURL(recording);
+        const anchor = document.createElement("a");
+        anchor.download = "recording.webm";
+        anchor.href = url;
+        anchor.click();
+      } catch(error){
+        alert(error)
+      }
     }, 2000);   
-
   } 
    
   return(
-    <div>
-      <section><h4>Track controls:</h4>
-        <h6> <input type="submit" onClick={play} value="Play"/>
-        <input type="submit" onClick={stop} value="Stop"/></h6>
-        <h6> <input type="submit" onClick={speedUp} value="Speed+"/>
-        <input type="submit" onClick={speedDown} value="Speed-"/></h6>
-        <h6> <input type="submit" onClick={reverse} value="Reverse"/>
-        <input type="submit" onClick={forward} value="Forward"/></h6>
-        <h6><input type="submit" onClick={onChorus} value="Chorus On"/>
-        <input type="submit" onClick={noChorus} value="Chorus off"/></h6>
-        <h6><input type="submit" onClick={onPing} value="Ping Pong On"/>
-        <input type="submit" onClick={noPing} value="Ping Pong off"/></h6>
-        <h6><input type="submit" onClick={onPitch} value="Pitch shift On"/>
-        <input type="submit" onClick={noPitch} value="Pitch shift off"/></h6>
-        <h6><input type="submit" onClick={bitCrush} value="Bit Crusher On"/>
-        <input type="submit" onClick={noCrush} value="Bit Crusher off"/></h6>
-        <h6><input type="submit" onClick={airHorn} value="Airhorn"/></h6>
-        <h6><input type="submit" onClick={bassDrum} value="Bass drum"/></h6>
-        <h6>To Trigger kick, mouse down on the offbeat, mouse up on the beat</h6>
-      </section>
-      <section><h4>Mic Controls</h4>
-        <h6>Put on headphones before starting mic <br/> to prevent feedback!</h6>
-        <h6> <input type="submit" onClick={micOn} value="Mic On"/>
-        <input type="submit" onClick={micOff} value="Mic Off"/></h6>
-        <h6><input type="submit" onClick={onReverb} value="Reverb On"/>
-        <input type="submit" onClick={noReverb} value="Reverb off"/></h6>
-        <h6><input type="submit" onClick={onHarmonize} value="Harmonizer On"/>
-        <input type="submit" onClick={noHarmonize} value="Harmonizer off"/></h6>
-        <h6><input type="submit" onClick={onVoxShift} value="Pitch Shifter On"/>
-        <input type="submit" onClick={noVoxShift} value="Pitch Shifter off"/></h6>
-        <h6><input type="submit" onClick={onEcho} value="Echo On"/>
-        <input type="submit" onClick={noEcho} value="Echo off"/></h6>
-      </section>
+    <div className="audioTile">
+      <h3>Control Pad:</h3>
       <section><h4>Recording controls:</h4>
-        <h6><input type="submit" onClick={record} value="Start Recording"/>
-        <input type="submit" onClick={stopRecord} value="Stop Recording"/></h6>
+        <h6><input type="submit" onClick={record} value="Start"/>
+        <input type="submit" onClick={stopRecord} value="Stop"/></h6>
       </section>
+      <section><h4>Track controls:</h4>
+        <h6>Play/Stop:<br/>
+          <input type="submit" onClick={play} value=">"/>
+          <input type="submit" onClick={stop} value="x"/>
+       </h6>
+       </section>
+       <section>
+            <h6>Loop:<br/>
+              <input type="submit" onClick={onLoop} value="@"/>
+              <input type="submit" onClick={noLoop} value="x"/>
+            </h6>
+          </section>
+       <section> 
+         <h6>
+           Speed:<br/>
+            <input type="submit" onClick={speedUp} value="+"/>
+            <input type="submit" onClick={speedDown} value="-"/>
+          </h6>
+          <h6>
+            Direction:<br/>
+            <input type="submit" onClick={reverse} value="<<"/>
+            <input type="submit" onClick={forward} value=">>"/>
+          </h6>
+        </section>
+          <section>
+            <h6>Chorus:<br/>
+              <input type="submit" onClick={onChorus} value="||"/>
+              <input type="submit" onClick={noChorus} value="|"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Delay:<br/>
+              <input type="submit" onClick={onPing} value="O)))"/>
+              <input type="submit" onClick={noPing} value="O"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Pitch:<br/>
+              <input type="submit" onClick={onPitch} value="V"/>
+              <input type="submit" onClick={noPitch} value="-"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Crusher:<br/>
+              <input type="submit" onClick={bitCrush} value="xXx"/>
+              <input type="submit" onClick={noCrush} value="oOo"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Airhorn:<br/> 
+              <input type="submit" onClick={airHorn} value="<)))"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Bass Drum:<br/>
+              <input type="submit" onClick={bassDrum} value="((X))"/>
+            </h6>
+          </section>
+          <section ><h4>Mic Controls:</h4>
+            <h6>Put on headphones before starting mic <br/> to prevent feedback!</h6>
+            <h6>Mic:<br/>
+              <input type="submit" onClick={micOn} value="O"/>
+              <input type="submit" onClick={micOff} value="X"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Reverb:<br/>
+              <input type="submit" onClick={onReverb} value="((0))"/>
+              <input type="submit" onClick={noReverb} value="0"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Harmonize:<br/>
+              <input type="submit" onClick={onHarmonize} value="+O+"/>
+              <input type="submit" onClick={noHarmonize} value="O"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Pitch:<br/>
+              <input type="submit" onClick={onVoxShift} value="vOv"/>
+              <input type="submit" onClick={noVoxShift} value="-o-"/>
+            </h6>
+          </section>
+          <section>
+            <h6>Echo:<br/>
+              <input type="submit" onClick={onEcho} value="O)))"/>
+              <input type="submit" onClick={noEcho} value="O"/>
+            </h6>
+          </section>
     </div>
   )
 }

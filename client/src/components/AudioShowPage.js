@@ -38,9 +38,8 @@ const AudioShowPage = (props) => {
   }
 
   return (
-    <div>
-      <h2>{track.name}</h2>
-      <h3>Control Pad:</h3>
+    <div className="main">
+      <h1>{track.name}</h1>
       <ControlPad track={track} />
       <Updater trackId={track.id}/>
       <Deleter trackId={track.id}/>

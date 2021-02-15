@@ -50,7 +50,7 @@ const Deleter = (props) => {
   }
 
   return (
-    <div>
+    <div className="audioTile">
       <h5>Delete your track</h5>
       <form onSubmit={onDelete} encType="multipart/form-data">
           <h3><input type="submit" value="Delete"/></h3>
