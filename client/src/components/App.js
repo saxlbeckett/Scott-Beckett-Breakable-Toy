@@ -23,7 +23,6 @@ const App = (props) => {
         setCurrentUser(null);
       });
   }, []);
-  // debugger
   return (
     <Router>
       <TopBar user={currentUser} />
@@ -42,6 +41,3 @@ const App = (props) => {
 
 export default hot(App);
 
-{/* <Route exact path="/profile">
-<UserProfile user={currentUser}/>
-</Route> */}

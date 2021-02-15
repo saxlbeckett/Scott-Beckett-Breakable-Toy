@@ -54,8 +54,8 @@ const UserProfile = (props) => {
   })
   
   return(
-    <div>
-      <h1>Your audio projects {userName}</h1>
+    <div className="main">
+      <h1>your audio projects:</h1>
       <ul>{mappedAudio}</ul>
     </div>
   )

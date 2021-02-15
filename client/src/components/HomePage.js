@@ -30,8 +30,8 @@ const HomePage = (props) => {
   })
   
   return(
-    <div>
-      <h1>All the audio so far</h1>
+    <div className="main">
+      <h1>community audio:</h1>
       <ul>{mappedAudio}</ul>
     </div>
   )

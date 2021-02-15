@@ -16,7 +16,14 @@ const Updater = (props) => {
 
     const onFileUpload = (event) => {
       event.preventDefault()
-      patchAudio()
+      let confirm = prompt("Please confirm by typing 'Y' or 'y'")
+      if(confirm === 'Y' || confirm === 'y'){
+        patchAudio()
+      } else {
+        alert("Track was not updated!")
+        setSelectedFile({})
+      }
+      
     }
 
     const patchAudio = async () => {
@@ -56,11 +63,11 @@ const Updater = (props) => {
     }
       
     return (
-      <div>
+      <div className="audioTile">
           <h5>Overwrite the existing track with you new track?</h5>
           <h6>Only mp3 or .webm files are allowed</h6>
           <form onSubmit={onFileUpload} encType="multipart/form-data">
-              <input type="file" onChange={onFileChange} />
+              <input type="file" onChange={onFileChange}/><br/>
               <input type="submit" value="Update"/>
           </form>
         <FileData selectedFile={selectedFile}/>

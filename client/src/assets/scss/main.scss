@@ -1,6 +1,8 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&family=Permanent+Marker&family=Syne+Mono&display=swap');
+
 // place global css here
 *,
 *::before,
@@ -12,6 +14,53 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
-.red{
-  background-color: red;
+@viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
+body {
+  background-image: url(https://cutewallpaper.org/21/notebook-paper-wallpaper/Paper-Wallpapers-Wallpaper-Cave.jpg);
+}
+.main {
+  margin: 1em auto;
+  width: 60%;
+} 
+h2, h3, h4, h5{
+  font-family: 'Permanent Marker', cursive;
+}
+h6{
+  font-family: 'Syne Mono', monospace;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: black;
+}
+h1{
+  font-family:'Nova Square', cursive;
+  color: rgb(199, 71, 71);
+  font-weight: bold;
+  text-decoration: underline dashed ;
+  text-align: center;
+}
+.audioTile{
+  border: 4px dashed rgb(0, 136, 182);
+  margin-bottom: 10px;
+  text-align: center;
+  padding:20px;
+
+}
+input[type=file]{
+  height:1.42em;
+  width: 90%;
+  background-color: rgb(126, 214, 243);
+  font-size: 16pt;
+  margin: 0.5em;
+  border-radius: 5px;
+}
+input[type=submit]{
+  height:2em;
+  width: 8em;
+  font-size: 14pt;
+  margin:0.25em;
+  
+  border-radius: 5px;
 }
