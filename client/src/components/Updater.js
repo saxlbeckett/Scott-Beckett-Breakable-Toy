@@ -25,7 +25,7 @@ const Updater = (props) => {
       }
       
     }
-
+    //credentials: "same-origin",
     const patchAudio = async () => {
       let trackId = props.trackId
       let formData = new FormData()
@@ -35,7 +35,7 @@ const Updater = (props) => {
         const response = await fetch(`/api/v1/audio/${trackId}`, {
           method: "PATCH",
           credentials: "same-origin",
-          body: formData,
+          body: formData
         });
         if (!response.ok) {
           if (response.status === 422) {

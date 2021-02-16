@@ -5,6 +5,7 @@ import FileSerializer from "../../serializers/FileSerializer.js"
 const audioRouter = new express.Router()
 
 audioRouter.post('/', upload.single('audio'), async (req, res) => {
+    
     const name = req.file.originalname
     const type = req.file.mimetype
     const audioFilePath = req.file.location

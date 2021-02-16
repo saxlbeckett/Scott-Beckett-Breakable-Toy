@@ -1,13 +1,18 @@
-import aws from 'aws-sdk'
+import AWS from 'aws-sdk'
 import multer from 'multer';
 import multerS3 from 'multer-s3'
+import config from "../config.js"
  
-aws.config.update({
-    secretAccessKey: process.env.AWS_ACCESS_KEY_ID,
-    accessKeyId: process.env.AWS_SECRET_ACCESS_KEY,
+AWS.config.update({
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     region: 'us-east-1'
 });
-const s3 = new aws.S3()
+const s3 = new AWS.S3({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: 'us-east-1'
+})
 
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'audio/mpeg' || file.mimetype === 'video/webm') {

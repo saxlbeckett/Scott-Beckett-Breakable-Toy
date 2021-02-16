@@ -18,7 +18,7 @@ const Uploader = (props) => {
       event.preventDefault()
       postAudio()
     }
-
+    //
     const postAudio = async () => {
       let formData = new FormData()
       formData.append("audio", selectedFile)
@@ -27,7 +27,7 @@ const Uploader = (props) => {
         const response = await fetch(`/api/v1/audio`, {
           method: "POST",
           credentials: "same-origin",
-          body: formData,
+          body: formData
         });
         if (!response.ok) {
           if (response.status === 422) {
