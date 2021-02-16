@@ -180,6 +180,7 @@ const ControlPad = (props) => {
   return(
     <div className="audioTile">
       <h3>Control Pad:</h3>
+      <h6>Record over your uploaded track or record a new track to upload!</h6>
       <section><h4>Recording controls:</h4>
         <h6><input type="submit" onClick={record} value="Start"/>
         <input type="submit" onClick={stopRecord} value="Stop"/></h6>
