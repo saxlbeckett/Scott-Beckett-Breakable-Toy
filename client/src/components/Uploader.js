@@ -56,7 +56,8 @@ const Uploader = (props) => {
     return (
       <div className="audioTile">
           <h5>File Upload</h5>
-          <h6>Only .mp3 or .webm files are allowed!</h6>
+          <h6>If you don't have any files yet, go to the control pad and record one to upload!</h6>
+          <h5>Only .mp3 or .webm files are allowed!</h5>
           <form onSubmit={onFileUpload} encType="multipart/form-data">
               <input className="uploader" type="file" onChange={onFileChange} />
               <input type="submit" value="Upload"/>

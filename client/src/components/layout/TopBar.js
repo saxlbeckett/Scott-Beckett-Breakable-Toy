@@ -25,6 +25,11 @@ const TopBar = ({ user }) => {
         Upload
       </Link>
     </li>,
+       <li key="control pad">
+       <Link to="/audio/0">
+         Control Pad
+       </Link>
+     </li>,
     <li key="sign-out">
       <SignOutButton />
     </li>
