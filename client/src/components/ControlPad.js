@@ -15,6 +15,7 @@ const ControlPad = (props) => {
   const synth = new Tone.MembraneSynth().connect(recorder).toDestination();
   Tone.Transport.start();
   const player = new Tone.Player(`${props.track.audioFilePath}`).connect(recorder).toDestination();
+  player.volume.value = -7
   const chorus = new Tone.Chorus(100, 30, 1).connect(recorder).toDestination();
   const pingPong = new Tone.PingPongDelay(0.50 , 0.25).connect(recorder).toDestination();
   const pitchShift = new Tone.PitchShift(-12).connect(recorder).toDestination();
