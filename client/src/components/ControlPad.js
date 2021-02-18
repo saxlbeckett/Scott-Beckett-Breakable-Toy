@@ -15,7 +15,7 @@ const ControlPad = (props) => {
   const synth = new Tone.MembraneSynth().connect(recorder).toDestination();
   Tone.Transport.start();
   const player = new Tone.Player(`${props.track.audioFilePath}`).connect(recorder).toDestination();
-  player.volume.value = -7
+  player.volume.value = -10
   const chorus = new Tone.Chorus(100, 30, 1).connect(recorder).toDestination();
   const pingPong = new Tone.PingPongDelay(0.50 , 0.25).connect(recorder).toDestination();
   const pitchShift = new Tone.PitchShift(-12).connect(recorder).toDestination();
@@ -23,6 +23,7 @@ const ControlPad = (props) => {
   
   const mic = new Tone.UserMedia().connect(recorder).toDestination();
   const reverb = new Tone.Reverb(5).connect(recorder).toDestination();
+  const trackReverb = new Tone.Reverb(5).connect(recorder).toDestination();
   const harmonizer = new Tone.PitchShift(5).connect(recorder).toDestination();
   const voiceShift = new Tone.PitchShift(-8).connect(recorder).toDestination();
   const feedbackDelay = new Tone.FeedbackDelay("8n", 0.25).connect(recorder).toDestination();
@@ -36,6 +37,24 @@ const ControlPad = (props) => {
   const stop = (event) => {
     event.preventDefault()
     player.stop()
+  }
+
+  const onTrackReverb = (event) => {
+    event.preventDefault()
+    player.connect(trackReverb)
+  }
+  const noTrackReverb = (event) => {
+    event.preventDefault()
+    player.disconnect(trackReverb)
+  }
+
+  const volumeUp = (event) => {
+    event.preventDefault()
+    player.volume.value += 5
+  }
+  const volumeDown = (event) => {
+    event.preventDefault()
+    player.volume.value -= 5
   }
   const onLoop = (event) => {
     event.preventDefault()
@@ -192,7 +211,13 @@ const ControlPad = (props) => {
           <input type="submit" onClick={stop} value="x"/>
        </h6>
        </section>
-       <section>
+      <section>
+            <h6>Volume:<br/>
+              <input type="submit" onClick={volumeUp} value="<)))"/>
+              <input type="submit" onClick={volumeDown} value="<"/>
+            </h6>
+          </section>
+          <section>
             <h6>Loop:<br/>
               <input type="submit" onClick={onLoop} value="@"/>
               <input type="submit" onClick={noLoop} value="x"/>
@@ -210,6 +235,12 @@ const ControlPad = (props) => {
             <input type="submit" onClick={forward} value=">>"/>
           </h6>
         </section>
+          <section>
+            <h6>Track Reverb:<br/>
+              <input type="submit" onClick={onTrackReverb} value=">O<"/>
+              <input type="submit" onClick={noTrackReverb} value="O"/>
+            </h6>
+          </section>
           <section>
             <h6>Chorus:<br/>
               <input type="submit" onClick={onChorus} value="||"/>
@@ -236,7 +267,7 @@ const ControlPad = (props) => {
           </section>
           <section>
             <h6>Airhorn:<br/> 
-              <input type="submit" onClick={airHorn} value="<)))"/>
+              <input type="submit" onClick={airHorn} value="<o))"/>
             </h6>
           </section>
           <section>

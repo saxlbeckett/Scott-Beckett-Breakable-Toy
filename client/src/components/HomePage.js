@@ -32,6 +32,7 @@ const HomePage = (props) => {
   return(
     <div className="main">
       <h1>community audio:</h1>
+      <h6>Warning: right now this app only works in chrome on desktop/laptop.<br/>An iPhone compatible version is in the works</h6>
       <ul>{mappedAudio}</ul>
     </div>
   )
