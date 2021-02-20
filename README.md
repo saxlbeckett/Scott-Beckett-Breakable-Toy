@@ -5,7 +5,7 @@ Breakable toy project for Launch Academy cohort 31
 This app is made to allow a user to do simple audio manipulation and create fun audio projects without paying for or downloading any software!
 
 # The main app interface
-![Image of Control pad](https://drive.google.com/file/d/1Zhn62u0T0RWfF4tj0HgGS3RynqHaeJ6h/view?usp=sharing)
+![Image of Control pad](/Users/scottbeckett/Desktop/Screen Shot 2021-02-19 at 4.18.35 PM.png)
 
 # The completed website
 https://audio-notepad.herokuapp.com/
