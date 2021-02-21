@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import * as Tone from 'tone'
-
+import RecorderObject from "./RecorderObject.js"
+import ChannelInsert from "./ChannelInsert.js"
 
 const ControlPad = (props) => {
   const actx = new Tone.Context();
-  const recorder = new Tone.Recorder();
+  const recorderObject = RecorderObject()
+  const recorder = recorderObject.effect
   const sampler = new Tone.Sampler({
     urls: {A1: "414208__jacksonacademyashmore__airhorn.wav"},
     baseUrl: "https://audiofilestorage2.s3.amazonaws.com/",
@@ -27,6 +29,8 @@ const ControlPad = (props) => {
   const harmonizer = new Tone.PitchShift(5).connect(recorder).toDestination();
   const voiceShift = new Tone.PitchShift(-8).connect(recorder).toDestination();
   const feedbackDelay = new Tone.FeedbackDelay("8n", 0.25).connect(recorder).toDestination();
+
+
   //Track functions
 
   const play = (event) => {
@@ -56,6 +60,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.volume.value -= 5
   }
+
   const onLoop = (event) => {
     event.preventDefault()
     player.loop = true
@@ -73,6 +78,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.disconnect(crusher)
   }
+
   const onChorus = (event) => {
     event.preventDefault()
     player.connect(chorus)
@@ -81,6 +87,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.disconnect(chorus)
   }
+
   const onPing = (event) => {
     event.preventDefault()
     player.connect(pingPong)
@@ -89,6 +96,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.disconnect(pingPong)
   }
+
   const onPitch = (event) => {
     event.preventDefault()
     player.connect(pitchShift)
@@ -97,14 +105,17 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.disconnect(pitchShift)
   }
+
   const airHorn = (event) => {
     event.preventDefault()
     sampler.triggerAttack(["A1"])
   }
+
   const bassDrum = (event) => {
     event.preventDefault()
     synth.triggerAttackRelease("C2", "8n");
   }
+
   const speedUp = (event) => {
     event.preventDefault()
     player.playbackRate += 0.25
@@ -173,37 +184,13 @@ const ControlPad = (props) => {
     mic.disconnect(feedbackDelay)
   }
 
-  const record = (event) => {
-    alert("Now you can start your mic and start you track and cut a demo!")
-    recorder.start();
-  }
-
-  const stopRecord = (event) => {
-    // wait for the notes to end and stop the recording
-    alert("Recording stopped, your performance is being downloded")
-    setTimeout(async () => {
-      // the recorded audio is returned as a blob
-      try{
-        const recording = await recorder.stop();
-        // download the recording by creating an anchor element and blob url
-        const url = URL.createObjectURL(recording);
-        const anchor = document.createElement("a");
-        anchor.download = "recording.webm";
-        anchor.href = url;
-        anchor.click();
-      } catch(error){
-        alert(error)
-      }
-    }, 2000);   
-  } 
    
   return(
     <div className="audioTile">
       <h3>Control Pad:</h3>
       <h6>Record over your uploaded track or record a new track to upload!</h6>
-      <section><h4>Recording controls:</h4>
-        <h6><input type="submit" onClick={record} value="Start"/>
-        <input type="submit" onClick={stopRecord} value="Stop"/></h6>
+      <section><h4>{recorderObject.effectName}</h4>
+        <ChannelInsert effectName="" handleClick1={recorderObject.handleClick1} handleClick2={recorderObject.handleClick2} symbol1={recorderObject.symbol1} symbol2={recorderObject.symbol2} />
       </section>
       <section><h4>Track controls:</h4>
         <h6>Play/Stop:<br/>
@@ -211,7 +198,7 @@ const ControlPad = (props) => {
           <input type="submit" onClick={stop} value="x"/>
        </h6>
        </section>
-      <section>
+          <section>
             <h6>Volume:<br/>
               <input type="submit" onClick={volumeUp} value="<)))"/>
               <input type="submit" onClick={volumeDown} value="<"/>
