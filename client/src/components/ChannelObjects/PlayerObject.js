@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Tone from 'tone'
-
+//this component is not currently operational
 const PlayerObject = (audioFilePath) => {
 
   const player = new Tone.Player(`${audioFilePath}`)

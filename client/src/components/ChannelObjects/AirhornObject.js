@@ -2,7 +2,7 @@ import React from 'react'
 import * as Tone from 'tone'
 import RecorderObject from "./RecorderObject.js"
 import PlayerObject from "./PlayerObject.js"
-
+//this component is not currently operational
 const AirhornObject = () => {
   const recorderObject = RecorderObject()
   const recorder = recorderObject.effect

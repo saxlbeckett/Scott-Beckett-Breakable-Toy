@@ -1,7 +1,7 @@
 import React from 'react'
 import PlayerObject from "./PlayerObject.js"
 import * as Tone from 'tone'
-
+//this component is not currently operational
 const VolumeObject = () => {
   const playerObject = PlayerObject()
   const player = playerObject.effect
