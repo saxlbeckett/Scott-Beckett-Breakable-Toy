@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import * as Tone from 'tone'
-import RecorderObject from "./RecorderObject.js"
+import RecorderObject from "./ChannelObjects/RecorderObject.js"
 import ChannelInsert from "./ChannelInsert.js"
 
 const ControlPad = (props) => {
   const actx = new Tone.Context();
+  Tone.Transport.start();
+
   const recorderObject = RecorderObject()
   const recorder = recorderObject.effect
+
+  const player = new Tone.Player(`${props.track.audioFilePath}`).connect(recorder).toDestination();
+  player.volume.value = -10
   const sampler = new Tone.Sampler({
     urls: {A1: "414208__jacksonacademyashmore__airhorn.wav"},
     baseUrl: "https://audiofilestorage2.s3.amazonaws.com/",
@@ -14,10 +19,9 @@ const ControlPad = (props) => {
       console.log("sample loaded");
     }
   }).connect(recorder).toDestination();
+
   const synth = new Tone.MembraneSynth().connect(recorder).toDestination();
-  Tone.Transport.start();
-  const player = new Tone.Player(`${props.track.audioFilePath}`).connect(recorder).toDestination();
-  player.volume.value = -10
+  
   const chorus = new Tone.Chorus(100, 30, 1).connect(recorder).toDestination();
   const pingPong = new Tone.PingPongDelay(0.50 , 0.25).connect(recorder).toDestination();
   const pitchShift = new Tone.PitchShift(-12).connect(recorder).toDestination();
@@ -30,14 +34,12 @@ const ControlPad = (props) => {
   const voiceShift = new Tone.PitchShift(-8).connect(recorder).toDestination();
   const feedbackDelay = new Tone.FeedbackDelay("8n", 0.25).connect(recorder).toDestination();
 
-
-  //Track functions
-
   const play = (event) => {
-      Tone.loaded().then(()=> {
-        player.start();
-      });
+    Tone.loaded().then(()=> {
+      player.start();
+    });
   }
+
   const stop = (event) => {
     event.preventDefault()
     player.stop()
@@ -47,6 +49,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.connect(trackReverb)
   }
+
   const noTrackReverb = (event) => {
     event.preventDefault()
     player.disconnect(trackReverb)
@@ -56,6 +59,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.volume.value += 5
   }
+
   const volumeDown = (event) => {
     event.preventDefault()
     player.volume.value -= 5
@@ -65,6 +69,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.loop = true
   }
+
   const noLoop = (event) => {
     event.preventDefault()
     player.loop = false
@@ -74,6 +79,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.connect(crusher)
   }
+
   const noCrush = (event) => {
     event.preventDefault()
     player.disconnect(crusher)
@@ -83,6 +89,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.connect(chorus)
   }
+
   const noChorus = (event) => {
     event.preventDefault()
     player.disconnect(chorus)
@@ -92,6 +99,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.connect(pingPong)
   }
+
   const noPing = (event) => {
     event.preventDefault()
     player.disconnect(pingPong)
@@ -101,6 +109,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.connect(pitchShift)
   }
+
   const noPitch = (event) => {
     event.preventDefault()
     player.disconnect(pitchShift)
@@ -120,14 +129,17 @@ const ControlPad = (props) => {
     event.preventDefault()
     player.playbackRate += 0.25
   }
+
   const speedDown = (event) => {
     event.preventDefault()
     player.playbackRate -= 0.25
   }
+
   const reverse = (event) => {
     event.preventDefault()
     player.reverse = true
   }
+
   const forward = (event) => {
     event.preventDefault()
     player.reverse = false
@@ -149,6 +161,7 @@ const ControlPad = (props) => {
     event.preventDefault()
     mic.connect(reverb)
   }
+
   const noReverb = (event) => {
     event.preventDefault()
     mic.disconnect(reverb)
@@ -193,17 +206,9 @@ const ControlPad = (props) => {
         <ChannelInsert effectName="" handleClick1={recorderObject.handleClick1} handleClick2={recorderObject.handleClick2} symbol1={recorderObject.symbol1} symbol2={recorderObject.symbol2} />
       </section>
       <section><h4>Track controls:</h4>
-        <h6>Play/Stop:<br/>
-          <input type="submit" onClick={play} value=">"/>
-          <input type="submit" onClick={stop} value="x"/>
-       </h6>
-       </section>
-          <section>
-            <h6>Volume:<br/>
-              <input type="submit" onClick={volumeUp} value="<)))"/>
-              <input type="submit" onClick={volumeDown} value="<"/>
-            </h6>
-          </section>
+      <ChannelInsert effectName="Play/Stop:" handleClick1={play} handleClick2={stop} symbol1=">" symbol2="X"/>
+      </section>
+          <ChannelInsert effectName="Volume:" handleClick1={volumeUp} handleClick2={volumeDown} symbol1="<)))" symbol2="<"/>
           <section>
             <h6>Loop:<br/>
               <input type="submit" onClick={onLoop} value="@"/>
