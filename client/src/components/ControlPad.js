@@ -1,149 +1,32 @@
 import React, { useState } from 'react'
 import * as Tone from 'tone'
-import RecorderObject from "./ChannelObjects/RecorderObject.js"
-import ChannelInsert from "./ChannelInsert.js"
+import RecorderInsert from "./TrackControls/RecorderInsert.js"
+import PlayerInsert from "./TrackControls/PlayerInsert.js"
+import VolumeInsert from "./TrackControls/VolumeInsert.js"
+import LoopInsert from "./TrackControls/LoopInsert.js"
+import SpeedInsert from './TrackControls/SpeedInsert.js'
+import DirectionInsert from './TrackControls/DirectionInsert.js'
+import TrackReverbInsert from './TrackEffectInserts/TrackReverbInsert.js'
+import ChorusInsert from './TrackEffectInserts/ChorusInsert.js'
+import DelayInsert from './TrackEffectInserts/DelayInsert.js'
+import PitchShiftInsert from './TrackEffectInserts/PitchShiftInsert.js'
+import BitCrusherInsert from './TrackEffectInserts/BitCrusherInsert.js'
+import SamplerInsert from "./TrackEffectInserts/SamplerInsert.js"
 
 const ControlPad = (props) => {
   const actx = new Tone.Context();
   Tone.Transport.start();
 
-  const recorderObject = RecorderObject()
-  const recorder = recorderObject.effect
+  const recorder = new Tone.Recorder();
 
   const player = new Tone.Player(`${props.track.audioFilePath}`).connect(recorder).toDestination();
   player.volume.value = -10
-  const sampler = new Tone.Sampler({
-    urls: {A1: "414208__jacksonacademyashmore__airhorn.wav"},
-    baseUrl: "https://audiofilestorage2.s3.amazonaws.com/",
-    onload: () => {
-      console.log("sample loaded");
-    }
-  }).connect(recorder).toDestination();
 
-  const synth = new Tone.MembraneSynth().connect(recorder).toDestination();
-  
-  const chorus = new Tone.Chorus(100, 30, 1).connect(recorder).toDestination();
-  const pingPong = new Tone.PingPongDelay(0.50 , 0.25).connect(recorder).toDestination();
-  const pitchShift = new Tone.PitchShift(-12).connect(recorder).toDestination();
-  const crusher = new Tone.BitCrusher(4).connect(recorder).toDestination();
-  
   const mic = new Tone.UserMedia().connect(recorder).toDestination();
   const reverb = new Tone.Reverb(5).connect(recorder).toDestination();
-  const trackReverb = new Tone.Reverb(5).connect(recorder).toDestination();
   const harmonizer = new Tone.PitchShift(5).connect(recorder).toDestination();
   const voiceShift = new Tone.PitchShift(-8).connect(recorder).toDestination();
   const feedbackDelay = new Tone.FeedbackDelay("8n", 0.25).connect(recorder).toDestination();
-
-  const play = (event) => {
-    Tone.loaded().then(()=> {
-      player.start();
-    });
-  }
-
-  const stop = (event) => {
-    event.preventDefault()
-    player.stop()
-  }
-
-  const onTrackReverb = (event) => {
-    event.preventDefault()
-    player.connect(trackReverb)
-  }
-
-  const noTrackReverb = (event) => {
-    event.preventDefault()
-    player.disconnect(trackReverb)
-  }
-
-  const volumeUp = (event) => {
-    event.preventDefault()
-    player.volume.value += 5
-  }
-
-  const volumeDown = (event) => {
-    event.preventDefault()
-    player.volume.value -= 5
-  }
-
-  const onLoop = (event) => {
-    event.preventDefault()
-    player.loop = true
-  }
-
-  const noLoop = (event) => {
-    event.preventDefault()
-    player.loop = false
-  }
-
-  const bitCrush = (event) => {
-    event.preventDefault()
-    player.connect(crusher)
-  }
-
-  const noCrush = (event) => {
-    event.preventDefault()
-    player.disconnect(crusher)
-  }
-
-  const onChorus = (event) => {
-    event.preventDefault()
-    player.connect(chorus)
-  }
-
-  const noChorus = (event) => {
-    event.preventDefault()
-    player.disconnect(chorus)
-  }
-
-  const onPing = (event) => {
-    event.preventDefault()
-    player.connect(pingPong)
-  }
-
-  const noPing = (event) => {
-    event.preventDefault()
-    player.disconnect(pingPong)
-  }
-
-  const onPitch = (event) => {
-    event.preventDefault()
-    player.connect(pitchShift)
-  }
-
-  const noPitch = (event) => {
-    event.preventDefault()
-    player.disconnect(pitchShift)
-  }
-
-  const airHorn = (event) => {
-    event.preventDefault()
-    sampler.triggerAttack(["A1"])
-  }
-
-  const bassDrum = (event) => {
-    event.preventDefault()
-    synth.triggerAttackRelease("C2", "8n");
-  }
-
-  const speedUp = (event) => {
-    event.preventDefault()
-    player.playbackRate += 0.25
-  }
-
-  const speedDown = (event) => {
-    event.preventDefault()
-    player.playbackRate -= 0.25
-  }
-
-  const reverse = (event) => {
-    event.preventDefault()
-    player.reverse = true
-  }
-
-  const forward = (event) => {
-    event.preventDefault()
-    player.reverse = false
-  }
 
   //Mic controls
   const micOn = (event) => {
@@ -202,71 +85,25 @@ const ControlPad = (props) => {
     <div className="audioTile">
       <h3>Control Pad:</h3>
       <h6>Record over your uploaded track or record a new track to upload!</h6>
-      <section><h4>{recorderObject.effectName}</h4>
-        <ChannelInsert effectName="" handleClick1={recorderObject.handleClick1} handleClick2={recorderObject.handleClick2} symbol1={recorderObject.symbol1} symbol2={recorderObject.symbol2} />
+      <section><h4>Recording Controls:</h4>
+        <RecorderInsert recorder={recorder}/>
       </section>
-      <section><h4>Track controls:</h4>
-      <ChannelInsert effectName="Play/Stop:" handleClick1={play} handleClick2={stop} symbol1=">" symbol2="X"/>
-      </section>
-          <ChannelInsert effectName="Volume:" handleClick1={volumeUp} handleClick2={volumeDown} symbol1="<)))" symbol2="<"/>
-          <section>
-            <h6>Loop:<br/>
-              <input type="submit" onClick={onLoop} value="@"/>
-              <input type="submit" onClick={noLoop} value="x"/>
-            </h6>
-          </section>
-       <section> 
-         <h6>
-           Speed:<br/>
-            <input type="submit" onClick={speedUp} value="+"/>
-            <input type="submit" onClick={speedDown} value="-"/>
-          </h6>
-          <h6>
-            Direction:<br/>
-            <input type="submit" onClick={reverse} value="<<"/>
-            <input type="submit" onClick={forward} value=">>"/>
-          </h6>
+        <section><h4>Track controls:</h4>
+          <PlayerInsert player={player}/>
+          <VolumeInsert player={player}/>
+          <LoopInsert player={player} />
+          <SpeedInsert player={player}/>
+          <DirectionInsert player={player}/>
         </section>
-          <section>
-            <h6>Track Reverb:<br/>
-              <input type="submit" onClick={onTrackReverb} value=">O<"/>
-              <input type="submit" onClick={noTrackReverb} value="O"/>
-            </h6>
-          </section>
-          <section>
-            <h6>Chorus:<br/>
-              <input type="submit" onClick={onChorus} value="||"/>
-              <input type="submit" onClick={noChorus} value="|"/>
-            </h6>
-          </section>
-          <section>
-            <h6>Delay:<br/>
-              <input type="submit" onClick={onPing} value="O)))"/>
-              <input type="submit" onClick={noPing} value="O"/>
-            </h6>
-          </section>
-          <section>
-            <h6>Pitch:<br/>
-              <input type="submit" onClick={onPitch} value="V"/>
-              <input type="submit" onClick={noPitch} value="-"/>
-            </h6>
-          </section>
-          <section>
-            <h6>Crusher:<br/>
-              <input type="submit" onClick={bitCrush} value="xXx"/>
-              <input type="submit" onClick={noCrush} value="oOo"/>
-            </h6>
-          </section>
-          <section>
-            <h6>Airhorn:<br/> 
-              <input type="submit" onClick={airHorn} value="<o))"/>
-            </h6>
-          </section>
-          <section>
-            <h6>Bass Drum:<br/>
-              <input type="submit" onClick={bassDrum} value="((X))"/>
-            </h6>
-          </section>
+        <section><h4>Track Effects:</h4> 
+          <TrackReverbInsert player={player} recorder={recorder} />
+          <ChorusInsert player={player} recorder={recorder}/>
+          <DelayInsert player={player} recorder={recorder}/>
+          <PitchShiftInsert player={player} recorder={recorder}/>
+          <BitCrusherInsert player={player} recorder={recorder}/>
+          <SamplerInsert recorder={recorder}/>
+        </section>
+    
           <section ><h4>Mic Controls:</h4>
             <h6>Put on headphones before starting mic <br/> to prevent feedback!</h6>
             <h6>Mic:<br/>

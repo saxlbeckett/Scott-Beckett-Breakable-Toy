@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-import * as Tone from 'tone'
+import React from 'react'
 
-const RecorderObject = () => {
-
-  const recorder = new Tone.Recorder();
+const RecorderInsert = ({recorder}) => {
 
   const record = (event) => {
     alert("Now you can start your mic and start you track and cut a demo!")
@@ -29,17 +26,14 @@ const RecorderObject = () => {
     }, 2000);   
   }
 
-  const symbol1 = "Start"
-  const symbol2 = "Stop"
-
-  return {
-    effectName: "Recording controls:",
-    effect: recorder,
-    handleClick1: record,
-    handleClick2: stopRecord,
-    symbol1: symbol1,
-    symbol2: symbol2
-  }
+  return(
+    <section>
+      <h6>
+        <input type="submit" onClick={record} value="Start"/>
+        <input type="submit" onClick={stopRecord} value="Stop"/>
+      </h6>
+    </section>
+  )
 
 }
-export default RecorderObject
+export default RecorderInsert
